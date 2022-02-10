@@ -12,7 +12,7 @@ import (
 )
 
 // GetUser returns data about a user by provided ID.
-// 		GET /api/v1/user/{user-id}
+// 		GET /api/v1/users/{user-id}
 // 		Responds: 200, 400, 500
 //		URI parameters:
 //			id: The id of a user

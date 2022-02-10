@@ -10,7 +10,7 @@ import (
 )
 
 // DeleteUser deletes all data about a user by provided user ID.
-// 		DELETE /api/v1/user/{user-id}
+// 		DELETE /api/v1/users/{user-id}
 // 		Responds: 204, 400, 500
 //		URI parameters:
 //			id: The id of a user
