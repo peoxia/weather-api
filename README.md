@@ -16,8 +16,8 @@ about the events that modify data.
 **GET /_healthz** - health check
 
 **GET /api/v1/users** - fetches the list of users by pages. Available query parameters:
-pageId (required)
-country (optional, use UK or Italy values for testing)
+* pageId (required)
+* country (optional, use UK or Italy values for testing)
 
 **GET /api/v1/users/{user-id}** - fetches data about a user
 
