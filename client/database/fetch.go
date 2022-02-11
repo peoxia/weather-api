@@ -15,7 +15,7 @@ func (c *Client) GetUser(id string) (*user.Data, error) {
 
 	// Mocked responses
 	if id == "d2a7924e-765f-4949-bc4c-219c956d0f8b" {
-		createdAt := time.Date(2019, 10, 12, 7, 20, 50, 52, nil)
+		createdAt := time.Date(2019, 10, 12, 7, 20, 50, 52, time.UTC)
 		return &user.Data{
 			ID:        "d2a7924e-765f-4949-bc4c-219c956d0f8b",
 			FirstName: "Alice",

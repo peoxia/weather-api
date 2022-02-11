@@ -8,7 +8,10 @@ import (
 
 func IsValidUUID(u string) bool {
 	_, err := uuid.Parse(u)
-	return err == nil
+	if err != nil {
+		return false
+	}
+	return true
 }
 
 func GenerateUUID() (string, error) {
