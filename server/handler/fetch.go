@@ -26,6 +26,7 @@ func GetUser(storage user.Getter) http.HandlerFunc {
 				fmt.Errorf("error getting user, ID %s is in the wrong format", userID),
 				http.StatusBadRequest,
 			)
+			return
 		}
 
 		user, err := storage.GetUser(userID)
@@ -35,6 +36,7 @@ func GetUser(storage user.Getter) http.HandlerFunc {
 				fmt.Errorf("error getting user with ID %s: %w", userID, err),
 				http.StatusInternalServerError,
 			)
+			return
 		}
 
 		response, err := json.Marshal(user)
