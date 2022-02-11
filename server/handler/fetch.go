@@ -73,6 +73,7 @@ func GetUsers(storage user.ListGetter) http.HandlerFunc {
 				fmt.Errorf("error getting users list, pageID has wrong format: %w", err),
 				http.StatusBadRequest,
 			)
+			return
 		}
 		country := query.Get("country")
 
@@ -83,6 +84,7 @@ func GetUsers(storage user.ListGetter) http.HandlerFunc {
 				fmt.Errorf("error getting users list: %w", err),
 				http.StatusInternalServerError,
 			)
+			return
 		}
 
 		response, err := json.Marshal(users)
