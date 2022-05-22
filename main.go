@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 
-	"github.com/peoxia/user-api/config"
-	"github.com/peoxia/user-api/server"
+	"github.com/peoxia/weather-api/config"
+	"github.com/peoxia/weather-api/server"
 )
 
 func main() {

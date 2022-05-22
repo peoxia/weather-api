@@ -1,12 +1,7 @@
 <div align="center">
-    <h1>user-api</h1>
-    <p>The API for accessing and managing data about users.</p>
+    <h1>weather-api</h1>
+    <p>The API for requesting weather information.</p>
 </div>
-
-# Description
-User-api is an example of a microservice for accessing and managing data about users.
-It uses mocked MySQL client as storage and mocked PubSub client for notifying other apps
-about the events that modify data.
 
 # Requirements
 * Go >=1.17
@@ -15,20 +10,20 @@ about the events that modify data.
 # API
 **GET /_healthz** - health check
 
-**GET /api/v1/users** - fetches the list of users by pages. Available query parameters:
-* pageId (required)
-* country (optional, use UK or Italy values for testing)
+**GET /v1/weather** - returns current weather by the location. Available query parameters:
+* city (optional)
 
-**GET /api/v1/users/{user-id}** - fetches data about a user
-
-**POST /api/v1/users** - creates a new user or updates an existing one
-
-**DELETE /api/v1/users/{user-id}** - deletes a user
 
 # Run
+**Make**
 ```
-sudo docker build -t user-api .
-sudo docker run -p 8000:8000 user-api
+make server
+```
+
+**Docker**
+```
+sudo docker build -t weather-api .
+sudo docker run -p 8000:8000 weather-api
 ```
 
 The API will be accessible at localhost:8000.

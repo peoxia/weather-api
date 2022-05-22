@@ -14,34 +14,39 @@ import (
 	"syscall"
 
 	"github.com/gorilla/mux"
-	log "github.com/sirupsen/logrus"
+	"github.com/peoxia/weather-api/client/openweathermap"
+	"github.com/peoxia/weather-api/client/weatherstack"
+	"github.com/peoxia/weather-api/config"
 
-	"github.com/peoxia/user-api/client/database"
-	"github.com/peoxia/user-api/config"
+	log "github.com/sirupsen/logrus"
 )
 
 // Server holds the HTTP server, router, config and all clients.
 type Server struct {
-	Config   *config.Config
-	Database *database.Client
-	// PubSub *pubsub.Client
-	HTTP   *http.Server
-	Router *mux.Router
+	Config         *config.Config
+	OpenWeatherMap *openweathermap.Client
+	WeatherStack   *weatherstack.Client
+	HTTP           *http.Server
+	Router         *mux.Router
 }
 
 // Create sets up the HTTP server, router and all clients.
 // Returns an error if an error occurs.
 func (s *Server) Create(ctx context.Context, config *config.Config) error {
 
-	var databaseClient database.Client
-	if err := databaseClient.InitMock(config); err != nil {
-		return fmt.Errorf("database client: %w", err)
+	var OpenWeatherMapClient openweathermap.Client
+	if err := OpenWeatherMapClient.Init(config); err != nil {
+		return fmt.Errorf("error initializing Open Weather Map client: %w", err)
 	}
 
-	// Init PubSub client
+	var WeatherStackClient weatherstack.Client
+	if err := WeatherStackClient.Init(config); err != nil {
+		return fmt.Errorf("error initializing Weather Stack client: %w", err)
+	}
 
-	s.Database = &databaseClient
 	s.Config = config
+	s.OpenWeatherMap = &OpenWeatherMapClient
+	s.WeatherStack = &WeatherStackClient
 	s.Router = mux.NewRouter()
 	s.HTTP = &http.Server{
 		Addr:    fmt.Sprintf(":%s", s.Config.Port),
@@ -67,10 +72,6 @@ func (s *Server) Serve(ctx context.Context) error {
 		log.Info("Shutdown signal received")
 
 		if err := s.HTTP.Shutdown(ctx); err != nil {
-			log.Error(err.Error())
-		}
-
-		if err := s.Database.Close(); err != nil {
 			log.Error(err.Error())
 		}
 
